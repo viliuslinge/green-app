@@ -1,0 +1,125 @@
+<div *ngIf="!showResults" class="container">
+  <form
+    novalidate
+    class="form"
+    [formGroup]="form"
+    (ngSubmit)="calcResults()">
+
+    <div class="form__gender">
+      <button type="button" name="woman" (click)="changeGender()"><</button>
+      <p>{{ gender }}</p>
+      <button type="button" name="man" (click)="changeGender()">></button>
+      <input
+        type="text"
+        name="gender"
+        placeholder="Gender"
+        formControlName="gender"
+        [(ngModel)]="gender"
+        [ngStyle]="{'display': 'none'}">
+    </div>
+
+    <div class="form__info">
+
+      <div class="input-container">
+        <label for="age">Age</label>
+        <input
+          id="age"
+          type="text"
+          name="age"
+          placeholder="Age"
+          formControlName="age"
+          maxlength="3">
+        <p *ngIf="formErrors.age">{{ formErrors.age }}</p>
+      </div>
+
+      <label for="height">Height</label>
+      <input
+        id="height"
+        type="text"
+        name="height"
+        placeholder="Height"
+        formControlName="height"
+        maxlength="3">
+        <p *ngIf="formErrors.height">{{ formErrors.height }}</p>
+
+      <label for="weight">Weight</label>
+      <input
+        id="weight"
+        type="text"
+        name="weight"
+        placeholder="Weight"
+        formControlName="weight"
+        maxlength="5">
+        <p *ngIf="formErrors.weight">{{ formErrors.weight }}</p>
+    </div>
+
+    <select name="activity" formControlName="activity">
+      <option value="">Pick one</option>
+      <option value="1.2,0">Sedentary - little or no exercise</option>
+      <option value="1.375,72">Lightly Active - exercise/sports 1-3 times/week</option>
+      <option value="1.55,120">Moderatetely Active - exercise/sports 3-5 times/week</option>
+      <option value="1.725,168">Very Active - hard exercise/sports 6-7 times/week</option>
+      <option value="1.9,252">Extra Active - very hard exercise/sports or physical job</option>
+    </select>
+    <p *ngIf="formErrors.activity">{{ formErrors.activity }}</p>
+
+    <input
+      *ngIf="current.checked"
+      (keydown)="changeGoalWeight(current)"
+      type="text"
+      name="goal"
+      placeholder="Goal weight"
+      formControlName="goal"
+      maxlength="5"
+      [(ngModel)]="form.value['weight']">
+    <input
+      *ngIf="!current.checked"
+      (keydown)="changeGoalWeight(current)"
+      type="text"
+      name="goal"
+      placeholder="Goal weight"
+      formControlName="goal"
+      maxlength="5">
+    <input
+      (click)="switchCurrentWeight($event)"
+      #current
+      type="checkbox"
+      name="maintain-weight"
+      checked>
+    <p *ngIf="formErrors.goal">{{ formErrors.goal }}</p>
+
+    <button type="submit" [disabled]="!form.valid">Calculate</button>
+  </form>
+</div>
+
+<div *ngIf="showResults" class="container">
+  <div>
+    <p>Gender: {{ form.value['gender'] }}</p>
+    <p>Age: {{ form.value['age'] }}</p>
+    <p>Height: {{ form.value['height'] }}</p>
+    <p>Weight: {{ form.value['weight'] }}</p>
+    <p>Activity: {{ form.value['activity'] }}</p>
+    <p>Goal weight: {{ form.value['goal'] }}</p>
+    <br><hr>
+    <p>BMI: {{ bmi }}</p>
+    <p>Ideal weight: {{ idealWeight['average'] }}</p>
+    <p>Ideal devine: {{ idealWeight['devine'] }}</p>
+    <p>Ideal robinson: {{ idealWeight['robinson'] }}</p>
+    <p>Ideal miller: {{ idealWeight['miller'] }}</p>
+    <br><hr>
+    <p>BMR: {{ calories['bmr'] }}</p>
+    <p>Gain 1,0kg: {{ calories['gain2'] }}</p>
+    <p>Gain 0,5kg: {{ calories['gain1'] }}</p>
+    <p>Maintain: {{ calories['maintain'] }}</p>
+    <p>Loose 0,5kg: {{ calories['loose1'] }}</p>
+    <p>Loose 1,0kg: {{ calories['loose2'] }}</p>
+    <br><hr>
+    <p>Water: {{ waterNeed }}</p>
+    <br><hr>
+    <p>Weight difference: {{ weightDifference['diff'] }}</p>
+    <p>Status: {{ weightDifference['status'] }}</p>
+    <p>Days of diet: {{ dietDays }}</p>
+    <p>Goal date: {{ dietDate }}</p>
+    <p>Calories to {{ weightDifference['status'] }}: {{ calDifference }} (20% from daily amount)</p>
+  </div>
+</div>

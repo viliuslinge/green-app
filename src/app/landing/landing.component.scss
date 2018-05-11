@@ -1,0 +1,14 @@
+@import '../../styles';
+
+.container {
+  background-color: $c-brand;
+  height: 100vh;
+  width: 100vw;
+  position: relative;
+}
+
+.calculator {
+  position: absolute;
+  top: calc(50vh - 300px);
+  left: 150px;
+}

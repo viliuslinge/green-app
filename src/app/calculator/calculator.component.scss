@@ -1,0 +1,23 @@
+@import '../../styles';
+
+.container {
+  background-color: $c-white;
+  height: 600px;
+  width: 400px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.form__gender {
+  display: flex;
+  align-items: center;
+}
+.form__info {
+  display: flex;
+}
